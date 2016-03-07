@@ -203,6 +203,7 @@ module Cequel
         log('CQL', statement, *bind_vars) do
           begin
             client.execute(sanitize(statement, bind_vars),
+                           page_size: 100000,
                            consistency: consistency || default_consistency)
           rescue Cassandra::Errors::NoHostsAvailable,
                  Ione::Io::ConnectionError => e
